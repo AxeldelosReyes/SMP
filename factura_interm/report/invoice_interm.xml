@@ -91,21 +91,38 @@
                     </table>
                 </div>
             </div>
+            <t t-if="o.l10n_mx_edi_cfdi_uuid">
+                <!--New global variables-->
+                <t t-set="xml" t-value="o.l10n_mx_edi_get_xml_etree()"/>
+                <t t-set="tfd" t-value="o.l10n_mx_edi_get_tfd_etree(xml)"/>
+                <t t-set="tfd_original_string" t-value="o._get_l10n_mx_edi_cadena()"/>
+                <t t-set="external" t-value="o.l10n_mx_edi_get_et_etree(xml)"/></t>
             <div id="informations" class="row mt32 mb32">
                 <div class="col-3">
                     <strong style="color:#213360;">METODO DE PAGO</strong>
                     <br/>
-                    <span class="m-0" t-field="o.invoice_date"/>
+                    <t t-if="o.l10n_mx_edi_cfdi_uuid">
+                        <span t-esc="xml.get('formaDePago', xml.get('MetodoPago'))"/>
+                    </t>
                 </div>
                 <div class="col-3">
                     <strong style="color:#213360;">USO DE CFDI:</strong>
                     <br/>
-                    <span class="m-0" t-field="o.invoice_date_due"/>
+                    <t t-if="o.l10n_mx_edi_cfdi_uuid">
+                        <t t-if="xml.Receptor.get('UsoCFDI', False)">
+                            <t t-set="usage" t-value="xml.Receptor.get('UsoCFDI')"/>
+                            <span  t-esc="usage"/> -
+
+                            <span t-field="o.l10n_mx_edi_usage"/>
+                        </t>
+                    </t>
                 </div>
-                <div class="col-3  text-right">
+                <div class="col-3">
                     <strong style="color:#213360;">FORMA DE PAGO:</strong>
                     <br/>
-                    <span class="m-0" t-field="o.invoice_origin"/>
+                    <t t-if="o.l10n_mx_edi_payment_method_id">
+                        <span t-esc="' - '.join([o.l10n_mx_edi_payment_method_id.code, o.l10n_mx_edi_payment_method_id.name])"/>
+                    </t>
                 </div>
                 <div class="col-3  text-right">
                     <strong style="color:#213360;">MONEDA:</strong>
@@ -116,8 +133,8 @@
             <table style="width:100%">
                 <thead>
                     <tr style="font-size:16px">
-                        <th style="background-color:#1b4493; width:55%">
-                            <strong style="color:white;padding-left:5px;">Descripcion </strong>
+                        <th style="background-color:#1b4493; width:55%" >
+                            <strong style="color:white;padding-left:5px;" >Descripcion </strong>
                         </th>
                         <th class="text-center" style="background-color:#f1f1f1">
                             <strong>P.U </strong>
@@ -140,6 +157,9 @@
                             <t t-if="not line.display_type" name="account_invoice_line_accountable">
                                 <td style="padding-top:7px;padding-left:5px;">
                                     <span t-field="line.name"/>
+                                    <span style="padding-left:5px">Clave SAT:
+
+                                        <span t-field="line.product_id.l10n_mx_edi_code_sat_id.code"/></span>
                                 </td>
                                 <td class="text-center">
                                     <span t-field="line.price_unit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
@@ -207,6 +227,7 @@
 
 
 
+
                                             <t t-esc="amount_by_group[4]"/>
                                         </span>
                                     </td>
@@ -223,7 +244,9 @@
                 <div class="col-12">
                     <div style="background-color:#1b4493;color:white;">
                         <div class="row">
-                            <div class="col-7"/>
+                            <div class="col-7">
+                                <span style="padding-left:3px" t-esc="o.l10n_mx_edi_amount_to_text()"/>
+                            </div>
                             <div class="col-3 text-right">
                                 <strong>TOTAL</strong>
                             </div>
@@ -234,6 +257,65 @@
                     </div>
                 </div>
             </div>
+            <div style="display:block;height:42pt;"/>
+            <t t-if="o.l10n_mx_edi_cfdi_uuid">
+                <div class="row" id="complement" style="font-size:70% !important;position:relative; z-index:1; ">
+                    <div class="barcode col-3">
+                        <t t-set="sello" t-value="xml.get('Sello', 'No identificado')[-8:]"/>
+                        <t t-set="value" t-value="'/report/barcode/?type=QR&amp;value=%s'                     % quote_plus('https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?' + keep_query(                     re=o.l10n_mx_edi_cfdi_supplier_rfc, rr=o.l10n_mx_edi_cfdi_customer_rfc,                     tt='%.*f' % (o.currency_id.decimal_places, o.l10n_mx_edi_cfdi_amount), id=o.l10n_mx_edi_cfdi_uuid)                     + '&amp;fe=%s' % quote_plus(sello, 'utf-8', 'strict', '=/').replace('%2B', '+'))"/>
+                        <t t-set="new_size" t-value="'&amp;width=400&amp;height=400'"/>
+                        <img alt="Barcode" t-att-src="value + new_size" style="width:200; height:200px"/>
+                    </div>
+                    <div class="complement-details col-9">
+                        <div class="digital-stamp">
+                            <span>Digital stamp of the emitter</span>
+                        </div>
+                        <div class="digital-stamp-content">
+                            <span t-esc="xml.get('sello', xml.get('Sello', 'No identificado'))"/>
+                        </div>
+                        <div class="digital-stamp">
+                            <span>Digital stamp SAT</span>
+                        </div>
+                        <div class="digital-stamp-content">
+                            <span t-esc="tfd.get('selloSAT', tfd.get('SelloSAT', 'No identificado'))"/>
+                        </div>
+                        <div class="digital-stamp">
+                            <span>Original chain complement of digital certification SAT</span>
+                        </div>
+                        <div class="digital-stamp-content">
+                            <span class="nowrap" t-esc="tfd_original_string"/>
+                        </div>
+                        <div t-if="xml.Emisor.xpath('cfdi:ExpedidoEn', namespaces=xml.nsmap)" class="digital-stamp">
+                            <span>Issued from</span>
+                        </div>
+                        <div t-if="xml.Emisor.xpath('cfdi:ExpedidoEn', namespaces=xml.nsmap)" class="digital-stamp-content">
+                            <span t-esc="' | '.join([ '%s: %s' % (key, value) for key, value in xml.Emisor.ExpedidoEn.items()])"/>
+                        </div>
+                        <div class="digital-stamp">
+                            <span>Extra Info</span>
+                        </div>
+                        <div class="digital-stamp-content">
+                            <span>Emitter certificate:</span>
+                            <span t-esc="xml.get('noCertificado', xml.get('NoCertificado'))"/>
+                            <span>| SAT Certificate:</span>
+                            <span t-esc="tfd.get('NoCertificadoSAT')"/>
+                            <span>| Expedition place:</span>
+                            <span t-esc="xml.get('LugarExpedicion')"/>
+                            <span>| Fiscal Regime:</span>
+                            <span t-esc="xml.Emisor.get('RegimenFiscal', '')"/>
+                            <span>| Emission Date:</span>
+                            <span t-esc="xml.get('fecha', xml.get('Fecha', '')).replace('T', ' ')"/>
+                            <span>| Certification Date:</span>
+                            <span t-esc="tfd.get('FechaTimbrado', '').replace('T', ' ')"/>
+                            <span>| Fiscal Folio:</span>
+                            <span t-esc="tfd.get('UUID')"/>
+                        </div>
+                        <div class="digital-stamp-content text-center">
+                            <strong>This document is a printed representation of a CFDI</strong>
+                        </div>
+                    </div>
+                </div>
+            </t>
         </div>
         </t>
 	</template>
@@ -269,7 +351,7 @@
                         <span style="color:white; padding-left:10px; font-size:15px" t-field="o.name"/>
                         <br/>
                         <strong style="color:white; font-size:16px">Fecha </strong>
-                        <span style="color:white; padding-left:10px; font-size:15px" t-field="o.invoice_date" t-options='{"widget": "date"}'/>
+                        <span style="color:white; padding-left:10px; font-size:15px" t-field="o.invoice_date" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
                     </div>
                 </div>
             </div>
