@@ -10,17 +10,17 @@
 	<template id="sale_order_quotation_document" >
         <t t-call="informe_quotation.external_layout_quotation">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
-            <div class="page">
-                <div class="row" style="margin-bottom:32px" >
-                    <div class="col-4">
-                        <table>
+            <div class="page" style="font-size:14px">
+                <div class="row" style="margin-bottom:32px">
+                    <div class="col-5">
+                        <table style="width:100%">
                             <tr>
-                                <td>
+                                <td >
                                     <strong style="color:#213360; font-size:16px">Cliente:</strong>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td colspan="2">
                                     <strong>
                                         <span t-field="doc.partner_id.name"/>
                                     </strong>
@@ -36,25 +36,29 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>C.P:</strong>
+                                    <strong>C.P.:</strong>
                                 </td>
                                 <td>
                                     <span t-field="doc.partner_id.zip"/>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
+                                <td style="width:30%">
                                     <strong>Atencion:</strong>
                                 </td>
-                                <td>
-                                    <span/>
+                                <td style="width:70%"> 
+                                    <span t-field="doc.user_id.name"/>
                                 </td>
                             </tr>
                         </table>
                     </div>
-                    <div class="col-4"/>
+                    <div class="col-3"/>
                     <div class="col-4">
                         <table style="width:100%">
+                            <tr>
+                                <td style="visibility:hidden">holder</td>
+                                <td></td>
+                            </tr>
                             <tr>
                                 <td>
                                     <strong class="text-left">Fecha</strong>
@@ -68,7 +72,7 @@
                                     <strong>Tiempo entrega</strong>
                                 </td>
                                 <td class="text-right">
-                                    <span></span>
+                                    <span/>
                                 </td>
                             </tr>
                             <tr>
@@ -76,7 +80,7 @@
                                     <strong class="text-left">Vigencia</strong>
                                 </td>
                                 <td class="text-right">
-                                    <span />
+                                    <span/>
                                 </td>
                             </tr>
                             <tr>
@@ -98,18 +102,18 @@
 
                     </style>
                 <t t-set="line_num" t-value="1"/>
-                <table style="font-size:13px; width:100%" class="table-cua">
+                <table style="width:100%" class="table-cua">
                     <thead class="text-center" style="background-color:#1b4493; color:#FFFFFF">
-                        <tr class="table-cua" style="background-color:#1b4493; color:#FFFFFF; font-size:15px">
+                        <tr class="table-cua" style="background-color:#1b4493; color:#FFFFFF; font-size:16px">
                             <t t-set="colspan" t-value="6"/>
                             <th class="text-center" style="width:10%">Nº</th>
-                            <th style="width:50%">Descipcion</th>
+                            <th style="width:50%">Descripcion</th>
                             <th>Precio unitario</th>
                             <th>Cantidad</th>
                             <th>Importe</th>
                         </tr>
                     </thead>
-                    <tbody class="text-center">
+                    <tbody class="text-center" style="font-size:13px;">
                         <t t-set="current_subtotal" t-value="0"/>
                         <t t-foreach="doc.order_line" t-as="line">
                             <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
@@ -157,86 +161,83 @@
                     </tbody>
                 </table>
                 <br/>
-                <div class="row">
+                <div id="total" class="row" name="total">
+                    
                     <div class="col-8">
+                        <br/>
                         <strong> Notas: </strong>
                         <br/>
-                        <span t-field="doc.note"/>
+                        <span t-esc="doc.note"/>
                     </div>
-                    <div class="col-4" >
-                        <div class="clearfix" name="so_total_summary">
-                            <div id="total" class="row" name="total">
-                                <div >
-                                    <table style="width:100%">
-                                        <tr class="" style="">
-                                            <td name="td_amount_untaxed_label">
-                                                <span style="border-top:none;">Subtotal</span>
-                                            </td>
-                                            <td name="td_amount_untaxed" class="text-right">
-                                                <span t-field="doc.amount_untaxed"/>
-                                            </td>
-                                        </tr>
-                                        <t t-foreach="doc.amount_by_group" t-as="amount_by_group">
-                                            <tr style="">
-                                                <t t-if="amount_by_group[5] == 1 and doc.amount_untaxed == amount_by_group[2]">
-                                                    <td name="td_amount_by_group_label_3">
-                                                        <span t-esc="amount_by_group[0]"/>
-                                                        <span>&amp;nbsp;
-                                                        
-                                                            
-                                                            
-                                                            <span>on</span>&amp;nbsp;
-                                                        
-                                                            
-                                                            
-                                                            <t t-esc="amount_by_group[2]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
-                                                        </span>
-                                                    </td>
-                                                    <td name="td_amount_by_group_3" class="text-right o_price_total">
-                                                        <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
-                                                    </td>
-                                                </t>
-                                                <t t-else="">
-                                                    <td name="td_amount_by_group_label">
-                                                        <!--<span t-esc="amount_by_group[0]"/>-->
-                                                        <span>I.V.A</span>
-                                                    </td>
-                                                    <td name="td_amount_by_group" class="text-right o_price_total">
-                                                        <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
-                                                    </td>
-                                                </t>
-                                            </tr>
-                                        </t>
-                                        <tr style="background-color:#1b4493">
-                                            <td name="td_amount_total_label">
-                                                <strong style="color:white;">Total</strong>
-                                            </td>
-                                            <td name="td_amount_total" class="text-right">
-                                                <span style="color:white;" t-field="doc.amount_total"/>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-4">
+                        <table style="width:100%">
+                            <tr class="" style="">
+                                <td name="td_amount_untaxed_label">
+                                    <span style="border-top:none;">Subtotal</span>
+                                </td>
+                                <td name="td_amount_untaxed" class="text-right">
+                                    <span t-field="doc.amount_untaxed"/>
+                                </td>
+                            </tr>
+                            <t t-foreach="doc.amount_by_group" t-as="amount_by_group">
+                                <tr style="">
+                                    <t t-if="amount_by_group[5] == 1 and doc.amount_untaxed == amount_by_group[2]">
+                                        <td name="td_amount_by_group_label_3">
+                                            <span t-esc="amount_by_group[0]"/>
+                                            <span>&amp;nbsp;
+                                            
+                                                
+                                                
+                                                <span>on</span>&amp;nbsp;
+                                            
+                                                
+                                                
+                                                <t t-esc="amount_by_group[2]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                            </span>
+                                        </td>
+                                        <td name="td_amount_by_group_3" class="text-center">
+                                            <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                        <td name="td_amount_by_group_label">
+                                            <!--<span t-esc="amount_by_group[0]"/>-->
+                                            <span>I.V.A</span>
+                                        </td>
+                                        <td name="td_amount_by_group" class="text-center">
+                                            <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <tr style="background-color:#1b4493">
+                                <td class="text-center" style="background-color:#1b4493">
+                                    <strong style="color:white;">TOTAL</strong>
+                                </td>
+                                <td  class="text-center" style="background-color:#1b4493;padding-right:5px;">
+                                    <span style="color:white;" t-field="doc.amount_total"/>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <br/>
                 <div class="row">
-                    <div class="col-7">
+                    <div class="col-8">
                         <strong>Terminos y condiciones</strong>
                         <br/>
                         <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
                         eiusmod tempor incididunt ut labore et dolore magna aliqua.  </span>
                     </div>
-                    <div class="col-6"/></div>
+                    <div class="col-4"/>
+                </div>
                 <br/>
                 <br/>
                 <br/>
                 <br/>
                 <div class="row">
-                    <div class="col-7"/>
-                    <div class="col-5">
+                    <div class="col-8"/>
+                    <div class="col-4">
                         <div class="text-center" style="border-top: 1px solid black;">
                             <span>Fernando Carrillo Cepeda</span>
                         </div>
