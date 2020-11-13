@@ -9,7 +9,7 @@
 	<template id="purchase_order_spanish_document" >
         <t t-call="informe_po_spanish.external_layout_po_spanish">
             <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
-            <div class="page" style="font-size:16px">
+            <div class="page" style="font-size:16px;color:#404242">
                 <div class="row">
                     <div class="col-5">
                         <table>
@@ -40,7 +40,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width:30%">
+                                <td style="width:40%">
                                     <strong>Tel:</strong>
                                 </td>
                                 <td>
@@ -63,7 +63,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td style="width:30%">
+                                <td style="width:40%">
                                     <strong>RFC:</strong>
                                 </td>
                                 <td>
@@ -80,10 +80,10 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>Tel:</strong>
+                                    <strong>Usuario:</strong>
                                 </td>
                                 <td>
-                                    <span t-field="o.company_id.partner_id.phone"/>
+                                    <span t-field="o.user_id"/>
                                 </td>
                             </tr>
                         </table>
@@ -103,7 +103,7 @@
                         <tr class="table-cua" style="background-color:#1b4493; color:#FFFFFF; font-size:20px">
                             <t t-set="colspan" t-value="6"/>
                             <th style="width:10%">Nº</th>
-                            <th style="width:50%">Descripcion</th>
+                            <th style="width:40%">Descripcion</th>
                             <th>Precio Unitario</th>
                             <th class="text-center">Cantidad</th>
                             <th>Importe</th>
@@ -181,10 +181,10 @@
                                 </td>
                             </tr>
                             <tr style="background-color:#1b4493">
-                                <td name="td_amount_total_label" class="text-center">
+                                <td name="td_amount_total_label" style="background-color:#1b4493;" class="text-center">
                                     <strong style="color:white;">TOTAL</strong>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center" style="background-color:#1b4493;">
                                     <span style="color:white;" t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                 </td>
                             </tr>
@@ -207,7 +207,7 @@
                         <div class="col-8"/>
                         <div class="col-4">
                             <div class="text-center" style="border-top: 1px solid black;">
-                                <span>Fernando Carrillo Cepeda</span>
+                                <span style="color:black">Fernando Carrillo Cepeda</span>
                             </div>
                         </div>
                     </div>
