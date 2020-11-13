@@ -10,13 +10,13 @@
 	<template id="sale_order_quotation_document" >
         <t t-call="informe_quotation.external_layout_quotation">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
-            <div class="page" style="font-size:14px">
+            <div class="page" style="font-size:16px;color:#404242">
                 <div class="row" style="margin-bottom:32px">
                     <div class="col-5">
                         <table style="width:100%">
                             <tr>
                                 <td >
-                                    <strong style="color:#213360; font-size:16px">Cliente:</strong>
+                                    <strong style="color:#213360; font-size:20px">Cliente:</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -104,16 +104,16 @@
                 <t t-set="line_num" t-value="1"/>
                 <table style="width:100%" class="table-cua">
                     <thead class="text-center" style="background-color:#1b4493; color:#FFFFFF">
-                        <tr class="table-cua" style="background-color:#1b4493; color:#FFFFFF; font-size:16px">
+                        <tr class="table-cua" style="background-color:#1b4493; color:#FFFFFF; font-size:20px">
                             <t t-set="colspan" t-value="6"/>
                             <th class="text-center" style="width:10%">Nº</th>
-                            <th style="width:50%">Descripcion</th>
+                            <th style="width:40%">Descripcion</th>
                             <th>Precio Unitario</th>
                             <th>Cantidad</th>
                             <th>Importe</th>
                         </tr>
                     </thead>
-                    <tbody class="text-center" style="font-size:13px;">
+                    <tbody class="text-center" style="font-size:16px;">
                         <t t-set="current_subtotal" t-value="0"/>
                         <t t-foreach="doc.order_line" t-as="line">
                             <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
@@ -124,7 +124,7 @@
                                         <t t-esc="line_num"/>
                                         <t t-set="line_num" t-value="line_num + 1"/>
                                     </td>
-                                    <td>
+                                    <td class="text-left" style="padding-left:7px;">
                                         <span t-field="line.name"/>
                                     </td>
                                     <td>
@@ -314,13 +314,13 @@
         <field name="name">Sale Quotation</field>
         <field name="default" eval="False"/>
         <field name="format">custom</field>
-        <field name="page_height">297</field>
-        <field name="page_width">210</field>
+        <field name="page_height">280</field>
+        <field name="page_width">216</field>
         <field name="orientation">Portrait</field>
         <field name="margin_top">30</field>
-        <field name="margin_bottom">15</field>
-        <field name="margin_left">7</field>
-        <field name="margin_right">7</field>
+        <field name="margin_bottom">25</field>
+        <field name="margin_left">15</field>
+        <field name="margin_right">15</field>
         <field name="header_line" eval="False"/>
         <field name="header_spacing">15</field>
         <field name="dpi">90</field>
