@@ -9,7 +9,7 @@
 	<template id="purchase_order_spanish_document" >
         <t t-call="informe_po_spanish.external_layout_po_spanish">
             <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
-            <div class="page" style="font-size:16px;color:#404242">
+            <div class="page" style="font-size:16px;color:#404242;font-family: 'Montserrat', sans-serif;">
                 <div class="row">
                     <div class="col-5">
                         <table>
@@ -234,20 +234,20 @@
     </template>
 
     <template id="custom_external_layout_po_spanish">
-        <div class="header">
+        <div class="header" style="font-family: 'Montserrat', sans-serif;">
             <div class="row">
-                <br></br>
+                <br/>
                 <div class="col-4 mb4">
                     <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
                 </div>
-                <div class="col-4"></div>
+                <div class="col-4"/>
                 <div class="col-4">
                     <div style="background-color:#1b4493; padding-left:10px;padding-right:10px">
                         <strong style="color:white; font-size:18px">Orden No. </strong>
-                        <span style="color:white; padding-left:10px; font-size:18px" t-field="o.name"></span>
-                        <br></br>
+                        <span style="color:white; padding-left:10px; font-size:18px" t-field="o.name"/>
+                        <br/>
                         <strong style="color:white; font-size:18px">Fecha </strong>
-                        <span style="color:white; padding-left:10px; font-size:18px" t-field="o.date_order" t-options='{"widget": "date"}'></span>
+                        <span style="color:white; padding-left:10px; font-size:18px" t-field="o.date_order" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
                     </div>
                 </div>
                 <!--<div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>-->
@@ -257,7 +257,7 @@
             <t t-call="web.address_layout"/>
             <t t-raw="0"/>
         </div>
-        <div class="footer" style="font-size:12px">
+        <div class="footer" style="font-size:12px;font-family: 'Montserrat', sans-serif;">
             <div class="row text-center">
                 <div class="col-4">
                     <span t-field="company.partner_id.phone"/>
@@ -283,7 +283,7 @@
         <field name="page_width">216</field>
         <field name="orientation">Portrait</field>
         <field name="margin_top">35</field>
-        <field name="margin_bottom">15</field>
+        <field name="margin_bottom">25</field>
         <field name="margin_left">15</field>
         <field name="margin_right">15</field>
         <field name="header_line" eval="False"/>
