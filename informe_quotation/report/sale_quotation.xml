@@ -120,7 +120,7 @@
                             <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
                             <tr>
                                 <t t-if="not line.display_type">
-                                    <td class="text-center">
+                                    <td class="text-center" style="padding-top:7px;">
                                         <t t-esc="line_num"/>
                                         <t t-set="line_num" t-value="line_num + 1"/>
                                     </td>
@@ -151,7 +151,7 @@
                             </tr>
                             <t t-if="current_section and (line_last or doc.order_line[line_index+1].display_type == 'line_section')">
                                 <tr class="is-subtotal text-right">
-                                    <td name="td_section_subtotal" colspan="99">
+                                    <td name="td_section_subtotal" colspan="99" style="padding-top:7px;">
                                         <strong class="mr16">Subtotal</strong>
                                         <span t-esc="current_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                                     </td>
