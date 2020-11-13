@@ -176,7 +176,6 @@
             </table>
             <div id="total" class="row">
                 <div class="col-8">
-                    <br/>
                     <strong> Notas: </strong>
                     <br/>
                     <span t-esc="o.narration"/>
@@ -259,12 +258,12 @@
     <template id="custom_external_layout_invoice_interm">
         <div class="header" style="font-family: 'Montserrat', sans-serif;">
             <div class="row">
-                <br/>
                 <div class="col-4 mb4">
-                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 125px;" alt="Logo"/>
                 </div>
                 <div class="col-4"/>
                 <div class="col-4">
+                    <br/>
                     <div style="background-color:#1b4493; padding:10px">
                         <strong style="color:white; font-size:16px">Orden No. </strong>
                         <span style="color:white; padding-left:10px; font-size:15px" t-field="o.name"/>
@@ -333,12 +332,12 @@
         <field name="page_height">280</field>
         <field name="page_width">216</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">35</field>
+        <field name="margin_top">45</field>
         <field name="margin_bottom">25</field>
         <field name="margin_left">15</field>
         <field name="margin_right">15</field>
         <field name="header_line" eval="False"/>
-        <field name="header_spacing">20</field>
+        <field name="header_spacing">25</field>
         <field name="dpi">90</field>
     </record>
 </odoo>
