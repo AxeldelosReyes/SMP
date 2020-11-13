@@ -108,7 +108,7 @@
                             <t t-set="colspan" t-value="6"/>
                             <th class="text-center" style="width:10%">Nº</th>
                             <th style="width:50%">Descripcion</th>
-                            <th>Precio unitario</th>
+                            <th>Precio Unitario</th>
                             <th>Cantidad</th>
                             <th>Importe</th>
                         </tr>
