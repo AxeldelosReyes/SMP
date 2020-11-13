@@ -128,7 +128,7 @@
                                         <span t-field="line.name"/>
                                     </td>
                                     <td>
-                                        <span t-field="line.price_unit"/>
+                                        <span t-field="line.price_unit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                                     </td>
                                     <td>
                                         <span t-field="line.product_uom_qty"/>
@@ -175,7 +175,7 @@
                                 <td name="td_amount_untaxed_label">
                                     <span style="border-top:none;">Subtotal</span>
                                 </td>
-                                <td name="td_amount_untaxed" class="text-right">
+                                <td name="td_amount_untaxed" class="text-center">
                                     <span t-field="doc.amount_untaxed"/>
                                 </td>
                             </tr>
@@ -188,7 +188,7 @@
                                             
                                                 
                                                 
-                                                <span>on</span>&amp;nbsp;
+                                                <span>en</span>&amp;nbsp;
                                             
                                                 
                                                 
@@ -231,13 +231,11 @@
                     </div>
                     <div class="col-4"/>
                 </div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <div class="row">
-                    <div class="col-8"/>
-                    <div class="col-4">
+                <div style="page-break-inside:avoid !important">
+                    <div style="display:block;height:164px;"/>
+                    <div class="row" >
+                        <div class="col-8"/>
+                        <div class="col-4" >
                         <div class="text-center" style="border-top: 1px solid black;">
                             <span>Fernando Carrillo Cepeda</span>
                         </div>
@@ -247,6 +245,7 @@
                             <strong style="color:white;"> Fernando Carrillo Cepeda</strong>
                             <br/>
                             <strong style="color:white;"> CACF-861202-S6A</strong>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -281,8 +280,8 @@
                 <div class="col-4"></div>
                 <div class="col-4">
                     <div style="background-color:#1b4493; padding:10px">
-                        <strong style="color:white; font-size:20px">Cotizacion No. </strong>
-                        <span style="color:white; padding-left:10px; font-size:20px" t-field="doc.name"></span>
+                        <strong style="color:white; font-size:18px">Cotizacion No. </strong>
+                        <span style="color:white; padding-left:10px; font-size:18px" t-field="doc.name"></span>
                     </div>
                 </div>
                 <!--<div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>-->
@@ -292,7 +291,7 @@
             <t t-call="web.address_layout"/>
             <t t-raw="0"/>
         </div>
-        <div class="footer" style="font-size:10px">
+        <div class="footer" style="font-size:12px">
             <div class="row text-center">
                 <div class="col-4">
                     <span t-field="company.partner_id.phone"/>
@@ -311,6 +310,20 @@
         </div>
     </template>
 
-    
+    <record id="informe_ventas" model="report.paperformat">
+        <field name="name">Sale Quotation</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">15</field>
+        <field name="dpi">90</field>
+    </record>
 
 </odoo>
