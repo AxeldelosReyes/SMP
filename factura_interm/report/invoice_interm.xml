@@ -1,96 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="account_invoice_interm" inherit_id="account.report_invoice_with_payments">>
+    <template id="account_invoice_interm" inherit_id="account.report_invoice_with_payments">
          <xpath expr="//t[@t-call='account.report_invoice_document']" position="replace">
             <t t-call="factura_interm.account_invoice_interm_document" t-lang="o.partner_id.lang"/>
-
         </xpath>
     </template>
 
 	<template id="account_invoice_interm_document" >
         <t t-call="factura_interm.external_layout_invoice_interm">
             <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
-            <div class="page">
-                        <div class="row">
-                    <div class="col-4">
-                        <table style="width:100%">
-                            <tr>
-                                <td>
-                                    <strong style="color:#213360; font-size:16px">Cliente:</strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>RFC:</strong>
-                                </td>
-                                <td>
-                                    <span/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>C.P.:</strong>
-                                </td>
-                                <td>
-                                    <span/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>N. O.C. :</strong>
-                                </td>
-                                <td>
-                                    <span/>
-                                </td>
-                            </tr>
-                        </table>
+            <div class="page" style="font-size:16px;color:#404242;font-family: 'Montserrat', sans-serif;">
+                    <div class="row">
+                        <div class="col-5">
+                            <table style="width:100%">
+                                <tr>
+                                    <td >
+                                        <strong style="color:#213360; font-size:20px">Cliente:</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <strong>
+                                            <span t-field="o.partner_id.name"/>
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>RFC:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.partner_id.vat"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>C.P.:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.partner_id.zip"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%">
+                                        <strong>Nº O.C.:</strong>
+                                    </td>
+                                    <td style="width:70%"> 
+                                        <span t-field="o.ref"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-3"/>
+                        <div class="col-4">
+                            <table>
+                                <tr>
+                                    <td colspan="2">
+                                        <strong style="color:#213360; font-size:20px">Proveedor:</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <strong t-field="o.company_id.partner_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:40%">
+                                        <strong>RFC:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.company_id.partner_id.vat"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>C.P:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.company_id.partner_id.zip"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>TEL:</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.company_id.partner_id.phone"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                    <div class="col-4"></div>
-                    <div class="col-4">
-                        <table style="width:100%">
-                            <tr>
-                                <td>
-                                    <strong style="color:#213360; font-size:16px">Proveedor:</strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>RFC:</strong>
-                                </td>
-                                <td>
-                                    <span/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>C.P.:</strong>
-                                </td>
-                                <td>
-                                    <span/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Tel: </strong>
-                                </td>
-                                <td>
-                                    <span/>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <br></br>
+                <br/>
                 <div id="informations" class="row mt32 mb32">
                     <div class="col-3" >
                         <strong style="color:#213360;">METODO DE PAGO</strong>
@@ -113,10 +114,10 @@
                         <span class="m-0" t-field="o.currency_id.name"/>
                     </div>
                 </div>
-                <br></br>
+                <br/>
                 <table style="width:100%">
                     <thead>
-                        <tr>
+                        <tr style="font-size:20px">
                             <th style="background-color:#1b4493; width:55%">
                                 <strong style="color:white;">Descripcion </strong>
                             </th>
@@ -130,19 +131,20 @@
                                 <strong>Total</strong>
                             </th>
                         </tr>
-                    </thead>
-                    <t t-set="current_subtotal" t-value="0"/>
-                    <t t-foreach="o.invoice_line_ids" t-as="line">
+                    </thead>                
+                    <tbody style="font-size:16px;">
+                        <t t-set="current_subtotal" t-value="0"/>
+                        <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
+                        <t t-foreach="lines" t-as="line">
                         <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                         <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
-                        <tbody>
                             <tr>
                                 <t t-if="not line.display_type" name="account_invoice_line_accountable">
-                                    <td>
+                                    <td style="padding-top:7px;">
                                         <span t-field="line.name"/>
                                     </td>
                                     <td>
-                                        <span t-field="line.price_unit"/>
+                                        <span t-field="line.price_unit" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                     </td>
                                     <td>
                                         <span t-field="line.quantity"/>
@@ -171,103 +173,48 @@
                                     </td>
                                 </tr>
                             </t>
-                        </tbody>
-                    </t>
+                        </t>
+                    </tbody>
+                    
                 </table>
-                <div class="row">
+                <div id="total" class="row">
                     <div class="col-8">
+                        <br/>
                         <strong> Notas: </strong>
-                        <br></br>
-                        <!--<span t-field="o.note"/>-->
+                        <br/>
+                        <span t-esc="doc.narration"/>
                     </div>
-                    <div class="col-4">
-                        <div class="clearfix">
-                            <div id="total" class="row">
-                                <div t-attf-class="ml-auto">
-                                    <table style="width:100%">
-                                        <tr class="text-center" style="">
-                                            <td>
-                                                <strong>Subtotal</strong>
-                                            </td>
-                                            <td class="text-center">
-                                                <span t-field="o.amount_untaxed"/>
-                                            </td>
-                                        </tr>
-                                        <t t-foreach="o.amount_by_group" t-as="amount_by_group">
-                                            <tr style="" class="text-center">
-                                                <t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and o.amount_untaxed == amount_by_group[2]">
-                                                    <td>
-                                                        <span class="" t-esc="amount_by_group[0]"/>
-                                                    </td>
-                                                    <td class="text-center o_price_total">
-                                                        <span class="" t-esc="amount_by_group[3]"/>
-                                                    </td>
-                                                </t>
-                                                <t t-else="">
-                                                    <td>
-                                                        <span>I.V.A</span>
-                                                        <span t-esc="amount_by_group[0]"/>
-                                                        <span class=""> on
-                                                                
-                                                    
-                                                    
-                                                    
-                                                            
-                                                            
-                                                            <t t-esc="amount_by_group[4]"/>
-                                                        </span>
-                                                    </td>
-                                                    <td class="text-center o_price_total">
-                                                        <span class="p" t-esc="amount_by_group[3]"/>
-                                                    </td>
-                                                </t>
-                                            </tr>
-                                        </t>
-                                        <!--<tr class="text-center" style="">-->
-                                        <!--    <td>-->
-                                        <!--        <strong>Total</strong>-->
-                                        <!--    </td>-->
-                                        <!--    <td class="text-center">-->
-                                        <!--        <span class="" t-field="o.amount_total"/>-->
-                                        <!--    </td>-->
-                                        <!--</tr>-->
-                                        <t t-if="print_with_payments">
-                                            <t t-if="o.payment_state != 'invoicing_legacy'">
-                                                <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
-                                                <t t-foreach="payments_vals" t-as="payment_vals">
-                                                    <tr>
-                                                        <td>
-                                                            <i class="oe_form_field text-right oe_payment_label">Paid on 
-                                                        
-                                                        
-                                                        
-                                                                
-                                                                
-                                                                <t t-esc="payment_vals['date']" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
-                                                            </i>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <span t-esc="payment_vals['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                                                        </td>
-                                                    </tr>
-                                                </t>
-                                                <t t-if="len(payments_vals) &gt; 0">
-                                                    <tr class="">
-                                                        <td>
-                                                            <strong>Amount Due</strong>
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <span t-field="o.amount_residual"/>
-                                                        </td>
-                                                    </tr>
-                                                </t>
-                                            </t>
-                                        </t>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                     <div class="col-4">
+                        <table style="page-break-inside: avoid;">
+                            <tr>
+                                <td><strong>Subtotal</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_untaxed"/>
+                                </td>
+                            </tr>
+                            <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                                <tr style="">
+                                    <t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) == 1 and o.amount_untaxed == amount_by_group[2]">
+                                        <td><span class="text-nowrap" t-esc="amount_by_group[0]"/></td>
+                                        <td class="text-right">
+                                            <span class="text-nowrap" t-esc="amount_by_group[3]"/>
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                        <td>
+                                            <span t-esc="amount_by_group[0]"/>
+                                            <span class="text-nowrap"> on
+                                                <t t-esc="amount_by_group[4]"/>
+                                            </span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span class="text-nowrap" t-esc="amount_by_group[3]"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </table>
+                     </div>               
                 </div>
             </div>
         </t>
@@ -291,7 +238,7 @@
     </template>
 
     <template id="custom_external_layout_invoice_interm">
-        <div class="header">
+        <div class="header" style="font-family: 'Montserrat', sans-serif;">
             <div class="row">
                 <br></br>
                 <div class="col-4 mb4">
@@ -300,22 +247,20 @@
                 <div class="col-4"></div>
                 <div class="col-4">
                     <div style="background-color:#1b4493; padding:10px">
-                        <strong style="color:white; font-size:15px">Orden No. </strong>
-                        <span style="color:white; padding-left:10px; font-size:17px" t-field="o.name"></span>
+                        <strong style="color:white; font-size:18px">Orden No. </strong>
+                        <span style="color:white; padding-left:10px; font-size:18px" t-field="o.name"/>
                         <br></br>
                         <strong style="color:white; font-size:15px">Fecha </strong>
-                        <!-- Marca error -->
-                        <!-- <span style="color:white; padding-left:10px; font-size:17px" t-field="o.date_order" t-options='{"widget": "date"}'></span> -->
+                        <span style="color:white; padding-left:10px; font-size:18px" t-field="o.invoice_date" t-options='{"widget": "date"}'/> 
                     </div>
                 </div>
-                <!--<div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>-->
             </div>
         </div>
         <div class="article " t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
             <t t-call="web.address_layout"/>
             <t t-raw="0"/>
         </div>
-        <div class="footer" style="font-size:10px">
+        <div class="footer" style="font-size:12px;font-family: 'Montserrat', sans-serif;">
             <div class="row text-center">
                 <div class="col-4">
                     <span t-field="company.partner_id.phone"/>
@@ -333,6 +278,50 @@
         </div>
     </template>
 
-    
+    <template id="informe_factura_document_with_payments" inherit_id="factura_interm.account_invoice_interm_document" primary="True">
+            <xpath expr="//div[@id='total']/div[2]/table" position="inside">
+                <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
+                <t t-foreach="payments_vals" t-as="payment_vals">
+                    <tr>
+                        <td>
+                            <i class="oe_form_field text-right oe_payment_label">Paid on <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></i>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        </td>
+                    </tr>
+                </t>
+                <t t-if="len(payments_vals) > 0">
+                    <tr>
+                        <td><strong>Amount Due</strong></td>
+                        <td class="text-right">
+                             <span t-field="o.amount_residual"/>
+                        </td>
+                    </tr>
+                </t>
+            </xpath>
+    </template>
 
+    
+    <template id="account_invoice_interm_with_payments" inherit_id="account.report_invoice_with_payments">
+            <xpath expr="//t[@t-call='account.report_invoice_document_with_payments']" position="replace">
+                <t t-call="factura_interm.informe_factura_document_with_payments" t-lang="o.partner_id.lang"/>
+            </xpath>
+    </template>
+
+    <record id="informe_facturas" model="report.paperformat">
+        <field name="name">Invoice Paper</field>
+        <field name="default" eval="False"/>
+        <field name="format">custom</field>
+        <field name="page_height">280</field>
+        <field name="page_width">216</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">25</field>
+        <field name="margin_left">15</field>
+        <field name="margin_right">15</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">20</field>
+        <field name="dpi">90</field>
+    </record>
 </odoo>
