@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="account_invoice_interm" inherit_id="account.report_invoice_with_payments">
-         <xpath expr="//t[@t-call='account.report_invoice_document']" position="replace">
+    <template id="account_invoice_interm" inherit_id="account.report_invoice">
+            <xpath expr="//t[@t-call='account.report_invoice_document']" position="replace">
             <t t-call="factura_interm.account_invoice_interm_document" t-lang="o.partner_id.lang"/>
         </xpath>
     </template>
@@ -150,7 +150,7 @@
                                         <span t-field="line.quantity"/>
                                     </td>
                                     <td>
-                                        <span t-field="line.subtotal"/>
+                                        <span t-field="line.price_subtotal"/>
                                     </td>
                                 </t>
                                 <t t-if="line.display_type == 'line_section'">
@@ -182,7 +182,7 @@
                         <br/>
                         <strong> Notas: </strong>
                         <br/>
-                        <span t-esc="doc.narration"/>
+                        <span t-esc="o.narration"/>
                     </div>
                      <div class="col-4">
                         <table style="page-break-inside: avoid;">
