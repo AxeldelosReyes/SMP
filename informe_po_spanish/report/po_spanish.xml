@@ -120,7 +120,7 @@
                                         <t t-esc="line_num"/>
                                         <t t-set="line_num" t-value="line_num + 1"/>
                                     </td>
-                                    <td>
+                                    <td class="text-left" style="padding-left:7px;">
                                         <span t-field="line.name"/>
                                     </td>
                                     <td>
