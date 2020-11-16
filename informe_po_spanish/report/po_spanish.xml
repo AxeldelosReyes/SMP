@@ -23,6 +23,25 @@
                                     <strong t-field="o.partner_id.name"/>
                                 </td>
                             </tr>
+                            <t t-if="o.partner_id.lang == 'en_US'">
+                                <tr>
+                                <td>
+                                    <strong>Website:</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.partner_id.website"/>
+                                </td>
+                            </tr>
+                                <tr>
+                                <td>
+                                    <strong>Email:</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.partner_id.email"/>
+                                </td>
+                            </tr>
+                            </t>
+                            <t t-else="">
                             <tr>
                                 <td>
                                     <strong>RFC:</strong>
@@ -47,6 +66,7 @@
                                     <span t-field="o.partner_id.phone"/>
                                 </td>
                             </tr>
+                            </t>
                         </table>
                     </div>
                     <div class="col-3"/>
@@ -162,12 +182,12 @@
                         <br/>
                         <strong> Notas: </strong>
                         <br/>
-                        <span t-esc="o.notes"/>
+                        <span t-esc="o.report_description"/>
                     </div>
                     <div class="col-4">
                         <table style="width:100%">
                             <tr>
-                                <td name="td_subtotal_label" style="border-top:none;">
+                                <td name="td_subtotal_label" style="border-top:none;padding-left:5px;">
                                     <span>Subtotal</span>
                                 </td>
                                 <td class="text-center">
@@ -175,7 +195,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td name="td_taxes_label">I.V.A</td>
+                                <td name="td_taxes_label" style="padding-left:5px;">I.V.A</td>
                                 <td class="text-center">
                                     <span t-field="o.amount_tax" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                 </td>
@@ -192,15 +212,15 @@
                     </div>
                 </div>
                 <br/>
+                <t t-if="o.partner_id.lang != 'en_US'">
                 <div class="row">
                     <div class="col-7">
                         <strong>Terminos y condiciones</strong>
                         <br/>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua.  </span>
+                        <span t-field="o.notes"/>
                     </div>
-                    <div class="col-6"/></div>
-
+                    <div class="col-5"/></div>
+                </t>
                 <div style="page-break-inside:avoid !important">
                     <div style="display:block;height:164px;"/>
                     <div class="row">
@@ -258,6 +278,9 @@
             <t t-raw="0"/>
         </div>
         <div class="footer" style="font-size:12px;font-family: 'Montserrat', sans-serif;">
+            <t t-if="o.partner_id.lang == 'en_US'">
+            <div style="display:block;height:25px;background-color:#1b4493"/>
+            </t>
             <div class="row text-center">
                 <div class="col-4">
                     <span t-field="company.partner_id.phone"/>

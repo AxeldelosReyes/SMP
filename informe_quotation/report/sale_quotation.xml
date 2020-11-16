@@ -72,7 +72,7 @@
                                     <strong>Tiempo entrega</strong>
                                 </td>
                                 <td class="text-right">
-                                    <span/>
+                                    <span t-field="doc.commitment_date"/>
                                 </td>
                             </tr>
                             <tr>
@@ -80,7 +80,7 @@
                                     <strong class="text-left">Vigencia</strong>
                                 </td>
                                 <td class="text-right">
-                                    <span/>
+                                    <span t-field="doc.remaining_validity_days"/> Días
                                 </td>
                             </tr>
                             <tr>
@@ -167,7 +167,7 @@
                         <br/>
                         <strong> Notas: </strong>
                         <br/>
-                        <span t-esc="doc.note"/>
+                        <span t-esc="doc.report_description"/>
                     </div>
                     <div class="col-4">
                         <table style="width:100%">
@@ -226,8 +226,7 @@
                     <div class="col-8">
                         <strong>Terminos y condiciones</strong>
                         <br/>
-                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua.  </span>
+                        <span t-field="doc.note"/>
                     </div>
                     <div class="col-4"/>
                 </div>
