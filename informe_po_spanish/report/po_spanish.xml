@@ -82,30 +82,44 @@
                                     <strong t-field="o.company_id.partner_id"/>
                                 </td>
                             </tr>
-                            <tr>
-                                <td style="width:40%">
-                                    <strong>RFC:</strong>
-                                </td>
-                                <td>
-                                    <span t-field="o.company_id.partner_id.vat"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>C.P:</strong>
-                                </td>
-                                <td>
-                                    <span t-field="o.company_id.partner_id.zip"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>Usuario:</strong>
-                                </td>
-                                <td>
-                                    <span t-field="o.user_id"/>
-                                </td>
-                            </tr>
+                            <t t-if="o.partner_id.lang == 'en_US'">
+                                    <tr>
+                                        <td colspan="2">
+                                                <span t-field="o.company_id.partner_id.street"/>
+                                                <span t-field="o.company_id.partner_id.zip"/>
+                                                <span t-if="o.company_id.partner_id.city">,</span>
+                                                <span t-field="o.company_id.partner_id.city"/>
+                                                <span t-if="o.company_id.partner_id.state_id">,</span>
+                                                <span t-field="o.company_id.partner_id.state_id.name"/>
+                                        </td>
+                                    </tr>
+                            </t>
+                            <t t-else="">
+                                    <tr>
+                                        <td style="width:40%">
+                                            <strong>RFC:</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.company_id.partner_id.vat"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>C.P:</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.company_id.partner_id.zip"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Usuario:</strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.user_id"/>
+                                        </td>
+                                    </tr>
+                            </t>
                         </table>
                     </div>
                 </div>
@@ -288,9 +302,20 @@
                 <div class="col-4">
                     <span t-field="company.partner_id.street"/>
                     <span t-field="company.partner_id.zip"/>
+                    <span t-if="company.partner_id.city">,</span>
+                    <span t-field="company.partner_id.city"/>
+                    <span t-if="company.partner_id.state_id">,</span>
+                    <span t-field="company.partner_id.state_id.name"/>
                 </div>
                 <div class="col-4">
-                    <span t-field="company.partner_id.email"/>
+                    <t t-if="o.partner_id.lang == 'en_US'">
+                        <span>purchasing@interm.us</span>
+                        <span>www.interm.us</span>
+                    </t>
+                    <t t-else="">
+                        <span t-field="company.partner_id.email"/>
+                        <span t-field="company.partner_id.website"/>
+                    </t>
                 </div>
 
             </div>
